@@ -1,5 +1,6 @@
 const mongoose  = require('mongoose');
 const Schema    = mongoose.Schema;
+const brcypt    = require('bcrypt');
 
 //Admin için MongoDB Şeması
 const admin = new Schema({
