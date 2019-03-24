@@ -1,5 +1,6 @@
 const mongoose  = require('mongoose');
 const Schema    = mongoose.Schema;
+const brcypt    = require('bcrypt');
 
 //Ev Hanımı için MongoDB Şeması
 const evHanimi = new Schema({
@@ -32,6 +33,24 @@ const evHanimi = new Schema({
         type: String,
         required: true
     }                      
+});
+
+evHanimi.pre('save',function(next){
+    var evhanimi =this;
+    brcypt.genSalt(10,function(err,salt){
+        if(err) return next(err);   
+        brcypt.hash(evhanimi.e_password,salt,function(err,hash){
+            if(err){
+                return next(err);
+                console.log("Hash Hatası");
+            }
+
+                evhanimi.e_password=hash;
+                console.log(evhanimi.e_email+"E-Mailine Sahip Ev Hanımının Şifresi Hashlendi.");
+                next();
+            
+        });
+    });
 });
 
 
