@@ -1,6 +1,6 @@
 const mongoose  = require('mongoose');
 const Schema    = mongoose.Schema;
-const brcypt    = require('bcrypt');
+const bcrypt    = require('bcrypt-nodejs');
 
 //Normal Kullnıcı için MongoDB Şeması
 const normalKullanici = new Schema({
@@ -31,23 +31,29 @@ const normalKullanici = new Schema({
     }                  
 });
 
-normalKullanici.pre('save',function(next){
-    var kullanici =this;
-    brcypt.genSalt(10,function(err,salt){
-        if(err) return next(err);   
-        brcypt.hash(kullanici.k_password,salt,function(err,hash){
-            if(err){
-                return next(err);
-                console.log("Hash Hatası");
-            }
 
-            kullanici.k_password=hash;
-                console.log(kullanici.k_email+"E-Mailine Sahip Kullanıcının Şifresi Hashlendi.");
-                next();
-            
-        });
-    });
+//password hashing
+normalKullanici.pre('save', function(next) {
+    var user = this;
+    bcrypt.hash(user.k_password, null, null, function(err,hash) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            user.k_password = hash;
+            next();
+        }
+    })
 });
+
+//password compare
+normalKullanici.methods.validPassword = function(candidatePassword) {
+    if(this.k_password != null) {
+        return bcrypt.compareSync(candidatePassword, this.k_password);
+    } else {
+        return false;
+    }
+};
 
 
 //Normal Kullanıcı için MongoDB Modeli

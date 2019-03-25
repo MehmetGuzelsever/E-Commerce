@@ -23,23 +23,28 @@ const admin = new Schema({
     }             
 });
 
-admin.pre('save',function(next){
-    var admins =this;
-    brcypt.genSalt(10,function(err,salt){
-        if(err) return next(err);   
-        brcypt.hash(admins.a_password,salt,function(err,hash){
-            if(err){
-                return next(err);
-                console.log("Hash Hatası");
-            }
-
-            admins.a_password=hash;
-                console.log(admins.a_email+"E-Mailine Sahip Adminin Şifresi Hashlendi.");
-                next();
-            
-        });
-    });
+//password hashing
+admin.pre('save', function(next) {
+    var ad = this;
+    bcrypt.hash(ad.a_password, null, null, function(err,hash) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            ad.a_password = hash;
+            next();
+        }
+    })
 });
+
+//password compare
+admin.methods.validPassword = function(candidatePassword) {
+    if(this.a_password != null) {
+        return bcrypt.compareSync(candidatePassword, this.a_password);
+    } else {
+        return false;
+    }
+};
 
 
 //Admin için MongoDB Modeli
