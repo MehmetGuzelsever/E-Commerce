@@ -3,6 +3,7 @@ const mongoose  = require("mongoose");
 const morgan    = require("morgan");
 const cors      = require("cors");
 const bodyParse = require("body-parser");
+const path      = require("path");
 const port      = 1907;
 
 
@@ -36,9 +37,15 @@ mongoose.connect(database.db, {useNewUrlParser: true}, function(err) {
 
 //NPM Module Using
 app.use(morgan('dev'));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParse.json());
-app.use(bodyParse.urlencoded({extended: false}));
+app.use(bodyParse.urlencoded({extended: true}));
 app.use(cors());
+
+//Static Layout
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/views/index.html'));
+});
 
 
 //Routes
