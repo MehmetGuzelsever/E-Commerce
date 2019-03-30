@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Mehmet Guzelsever">
+
+  <title>Evyemekleri.com</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Import Font-Awasome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  
+  <!-- Import AngularJs -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+
+  <!-- Import Angular Route -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-route.min.js"></script>
+
+ <!-- Import Angular App and Routes -->
+ <script src="app.js"></script>
+ <script src="routes.js"></script>  
+
+  <!-- Custom styles for this template -->
+  <link href="template/css/business-frontpage.css" rel="stylesheet">
+
+</head>
+
+<body ng-app="app">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Evyemekleri.com</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Ana Sayfa
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Siparişlerim</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Yemekler</a>
+          </li>
+          <li class="nav-item" >
+            <button class="btn btn-outline-success">Giriş</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<div ng-view></div>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Mehmet Guzelsever 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="template/vendor/jquery/jquery.min.js"></script>
+  <script src="template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
