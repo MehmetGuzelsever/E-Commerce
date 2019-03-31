@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 
 //Normal Kullanıcı Register
 router.post('/user/register', function(req, res) {
-    auth.user(req.query, function (error, response) {
+    auth.user(req.body, function (error, response) {
         if (error) {
             res.send(error);
         }
