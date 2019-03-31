@@ -1,7 +1,7 @@
 angular.module('userController', [])
 
 //User Register Controller
-.controller('regController', function($http, $location) {
+.controller('regController', function($http, $location, User) {
     var app = this;
     app.il = ["İstanbul", "Ankara", "İzmir"];
     app.infoMessage = false;
@@ -27,7 +27,7 @@ angular.module('userController', [])
                 app.loading = false;
             }
             else {
-                $http.post('/api/user/register', app.regData)
+                User.getRegisterReq('/api/user/register', app.regData)
                 .then(function(info) {
                     if (info.data.success == false) {
                         app.errMsg = true;
@@ -35,7 +35,6 @@ angular.module('userController', [])
                         app.loading = false;
                     }
                     else {
-                        console.log("yarrak")
                         app.sucMsg = true;
                         app.success = info.data.msg;
                         app.loading = false;
