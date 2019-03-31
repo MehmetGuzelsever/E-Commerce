@@ -1,1 +1,1 @@
-angular.module('app', ['appRoutes', 'userController']);
+angular.module('app', ['appRoutes', 'userController', 'userService']);
