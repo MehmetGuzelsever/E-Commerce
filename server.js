@@ -49,7 +49,7 @@ app.get('*', function(req, res) {
 
 
 //Routes
-app.use('/', router);
+app.use('/api', router);
 
 //NodeJS server (http://localhost:1907)
 app.listen(port, function(err) {
