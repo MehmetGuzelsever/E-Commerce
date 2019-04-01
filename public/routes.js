@@ -28,6 +28,12 @@ angular.module('appRoutes', ['ngRoute'])
         controller:  'regHouseController',
         controllerAs: 'register'
     })
+
+    .when('/housewife/login', {
+        templateUrl: '/views/pages/housewifes/login.html',
+        controller:  'logHouseController',
+        controllerAs: 'login'
+    })
     
     .otherwise({ redirectTo: '/' });
 
