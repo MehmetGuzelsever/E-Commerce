@@ -1,7 +1,7 @@
 angular.module('userController', [])
 
 //User Register Controller
-.controller('regController', function($http, $location, User) {
+.controller('regController', function($location, User) {
     var app = this;
     app.il = ["İstanbul", "Ankara", "İzmir"];
     app.infoMessage = false;
@@ -38,9 +38,39 @@ angular.module('userController', [])
                         app.sucMsg = true;
                         app.success = info.data.msg;
                         app.loading = false;
-                        $location.path('/');
+                        $location.path('/') 
                     }
                 })
             }
+    }
+})
+
+//Login Controller
+.controller('logController', function($location,  Auth) {
+    var app = this;
+    app.infoMessage = false;
+    app.errMsg = false;
+    app.sucMsg = false;
+    app.loginUser = function() {
+        if (app.loginData.email == null || app.loginData.password == null) {
+                app.infoMessage = true;
+                app.loading = false;
+            }
+            else {
+                Auth.getLoginReq('/api/user/login', app.loginData)
+                .then(function(info) {
+                    if (info.data.success == false) {
+                        app.errMsg = true;
+                        app.error = info.data.msg;
+                        app.loading = false;
+                    }
+                    else {
+                        app.loading = false;
+                        app.sucMsg = true;
+                        app.success = info.data.msg;
+                        $location.path('/');  
+                    }
+                })
+            }        
     }
 })
