@@ -11,3 +11,15 @@ angular.module('housewifeService', [])
         return $http.post(url, regData);
     }
 })
+
+.factory('AuthHouse', function($http) {
+    var Services = {
+        getLoginReq  : getLoginReq
+    };
+
+    return Services;
+
+    function getLoginReq(url, loginData) {
+        return $http.post(url, loginData);
+    }
+})
