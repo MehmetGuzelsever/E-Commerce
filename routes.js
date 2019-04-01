@@ -27,7 +27,7 @@ router.post('/user/register', function(req, res) {
 
 //Ev Hanımı Register
 router.post('/housewife/register', function(req, res) {
-    auth.housewife(req.query, function (error, response) {
+    auth.housewife(req.body, function (error, response) {
         if (error) {
             res.send(error);
         }
@@ -39,7 +39,7 @@ router.post('/housewife/register', function(req, res) {
 
 //Admin Register
 router.post('/admin/register', function(req, res) {
-    auth.admin(req.query, function (error, response) {
+    auth.admin(req.body, function (error, response) {
         if (error) {
             res.send(error);
         }
@@ -63,7 +63,7 @@ router.post('/user/login', function(req, res) {
 
 //Ev Hanımı Login
 router.get('/housewife/login', function(req, res) {
-    auth.evlogin(req.query, function (error, response) {
+    auth.evlogin(req.body, function (error, response) {
         if (error) {
             res.send(error);
         }
@@ -75,7 +75,7 @@ router.get('/housewife/login', function(req, res) {
 
 //Admin Login
 router.get('/admin/login', function(req, res) {
-    auth.adminLogin(req.query, function (error, response) {
+    auth.adminLogin(req.body, function (error, response) {
         if (error) {
             res.send(error);
         }
