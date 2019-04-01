@@ -50,8 +50,8 @@ router.post('/admin/register', function(req, res) {
 })
 
 //Kullanıcı Login
-router.get('/user/login', function(req, res) {
-    auth.userLogin(req.query, function (error, response) {
+router.post('/user/login', function(req, res) {
+    auth.userLogin(req.body, function (error, response) {
         if (error) {
             res.send(error);
         }
