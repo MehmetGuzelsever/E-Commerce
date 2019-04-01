@@ -62,7 +62,7 @@ router.post('/user/login', function(req, res) {
 })
 
 //Ev Hanımı Login
-router.get('/housewife/login', function(req, res) {
+router.post('/housewife/login', function(req, res) {
     auth.evlogin(req.body, function (error, response) {
         if (error) {
             res.send(error);
@@ -74,7 +74,7 @@ router.get('/housewife/login', function(req, res) {
 })
 
 //Admin Login
-router.get('/admin/login', function(req, res) {
+router.post('/admin/login', function(req, res) {
     auth.adminLogin(req.body, function (error, response) {
         if (error) {
             res.send(error);
