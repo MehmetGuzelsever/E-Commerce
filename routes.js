@@ -8,6 +8,10 @@ const categoty  = require("./category/index");
 const food      = require("./food/index");
 const orders    = require("./orders/index");
 
+//for Access Token
+const jwt    = require("jsonwebtoken");
+const secret = "mehmetguzelsever";
+
 //Initial Request
 router.get('/', function(req, res) {
     res.json({msg:"Welcome to E-Commerce api"});
@@ -83,6 +87,38 @@ router.post('/admin/login', function(req, res) {
             res.send(response);
         }
     })
+})
+
+//Access Token Verify
+router.use(function(req, res, next) {
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if (token) {
+        //verify
+        jwt.verify(token, secret, function(err, decoded) {
+            if (err) {
+                res.json({
+                    success: false,
+                    message: 'Token Doğrulama Hatası'
+                })
+            }
+            else {
+                req.decoded = decoded;
+            next();
+            }
+          });
+    }
+    else {
+        res.json({
+            success: false,
+            message: "Token Bulunamadı."
+        })
+    }
+})
+
+//deneme request
+router.post('/me', function(req, res) {
+    res.send("Mehmet Güzelsever");
 })
 
 
