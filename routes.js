@@ -91,7 +91,7 @@ router.post('/admin/login', function(req, res) {
 
 //Access Token Verify
 router.use(function(req, res, next) {
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token =  req.headers['x-access-token'];
 
     if (token) {
         //verify
@@ -104,7 +104,7 @@ router.use(function(req, res, next) {
             }
             else {
                 req.decoded = decoded;
-            next();
+                next();
             }
           });
     }
@@ -118,7 +118,7 @@ router.use(function(req, res, next) {
 
 //deneme request
 router.post('/me', function(req, res) {
-    res.send("Mehmet Güzelsever");
+    res.send(req.decoded);
 })
 
 
