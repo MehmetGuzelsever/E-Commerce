@@ -1,0 +1,27 @@
+<div class="page-header">
+    <h1>{{ main.username }} Profil Sayfası</h1>
+</div>
+
+<div class="col-md-4 mb-5">
+<div class="panel panel-info" ng-controller="mainCntr as main">
+    <div class="panel-heading" style="text-align: center;" >
+        <strong>Hesap Bilgileri</strong>
+    </div>
+    <table class="table">
+        <tr>
+            <td><strong>E-Posta</strong></td>
+            <td><strong>Kullanıcı İsmi</strong></td>
+            <td><strong>Kullanıcı Soyismi</strong></td>
+            <td><strong>İL</strong></td>
+            <td><strong>İLÇE</strong></td>
+        </tr>
+        <tr>
+            <td>{{ main.email }}</td>
+            <td>{{ main.name }}</td>
+            <td>{{ main.surname }}</td>
+            <td>{{ main.il }}</td>
+            <td>{{ main.ilce }}</td>
+        </tr>
+    </table>
+</div>
+</div>
