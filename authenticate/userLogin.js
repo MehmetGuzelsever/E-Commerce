@@ -25,7 +25,7 @@ module.exports = function (info, callback) {
         callback(js);        
     }
     else {
-        user.findOne({ k_email: info.email }).select('k_email k_password').exec(function (err, User) {
+        user.findOne({ k_email: info.email }).select('k_email k_password k_adi k_soyadi k_il k_ilce').exec(function (err, User) {
             if (!User) {
                 const js = {
                     success:    false,
@@ -44,7 +44,7 @@ module.exports = function (info, callback) {
                     callback(js);
                 }
                 else {
-                    const token = jwt.sign({ email: User.email }, secret, { expiresIn: '2h' });                    
+                    const token = jwt.sign({ email: User.k_email, name: User.k_adi, surname:User.k_soyadi, il:User.k_il, ilce:User.k_ilce }, secret, { expiresIn: '2h' });             
                     const js = {
                         success:    true,
                         msg:        "Login Başarılı.",
