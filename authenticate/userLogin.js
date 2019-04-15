@@ -4,6 +4,10 @@
 //Normal Kullanıcı Modeli
 const user  = require('../config/normalkullanici');
 
+//for Access Token
+const jwt    = require('jsonwebtoken');
+const secret = 'mehmetguzelsever';
+
 
 module.exports = function (info, callback) {
     if (info.email == null) {
@@ -40,9 +44,11 @@ module.exports = function (info, callback) {
                     callback(js);
                 }
                 else {
+                    const token = jwt.sign({ email: User.email }, secret, { expiresIn: '2h' });                    
                     const js = {
                         success:    true,
-                        msg:        "Login Başarılı."
+                        msg:        "Login Başarılı.",
+                        token:      token
                     };
                     callback(null, js);                
                 }
