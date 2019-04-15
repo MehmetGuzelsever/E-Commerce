@@ -1,1 +1,1 @@
-angular.module('app', ['appRoutes', 'userController', 'housewifeController', 'userService', 'housewifeService']);
+angular.module('app', ['appRoutes', 'mainController', 'userController', 'housewifeController', 'userService', 'housewifeService']);
