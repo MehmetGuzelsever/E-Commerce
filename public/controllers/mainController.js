@@ -8,7 +8,8 @@ angular.module('mainController', [])
             console.log("Success:Kullanıci Giriş Yapmış.");
             Auth.getUser()
             .then(function(data) {
-                app.username = data.data;
+                console.log(data)
+                app.username = data.data.email;
             })
         }
         else {
@@ -19,7 +20,12 @@ angular.module('mainController', [])
     if(Auth.isLoggedIn()) {
         Auth.getUser()
         .then(function(data) {
-            app.showregpage = false;            
+            app.showregpage = false;
+            app.email = data.data.email;
+            app.name = data.data.name;
+            app.surname = data.data.surname;
+            app.il = data.data.il;
+            app.ilce = data.data.ilce;            
         })
     }
     else {
