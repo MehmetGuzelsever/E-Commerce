@@ -27,6 +27,7 @@
  <script src="routes.js"></script>
  <script src="controllers/userController.js"></script>
  <script src="controllers/housewifeController.js"></script>
+ <script src="controllers/mainController.js"></script>
  
  <!--Import Angular Services-->
  <script src="services/userServices.js"></script>
@@ -40,7 +41,7 @@
 <body ng-app="app">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" ng-controller="mainCntr as main">
     <div class="container">
       <a class="navbar-brand" href="#">Evyemekleri.com</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,19 +50,22 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Ana Sayfa
+            <a class="nav-link" href="/">Ana Sayfa
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Siparişlerim</a>
+            <a class="nav-link" href="/user/siparislerim">Siparişlerim</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Yemekler</a>
+            <a class="nav-link" href="/user/yemekler">Yemekler</a>
           </li>
           <li class="nav-item" >
-            <button class="btn btn-outline-success">Giriş</button>
+            <a class="nav-link" href="/user/login">Giriş</a>            
           </li>
+          <li class="nav-item" >
+              <a class="nav-link" ng-click="main.logout()">Çıkış</a>            
+            </li>
         </ul>
       </div>
     </div>
