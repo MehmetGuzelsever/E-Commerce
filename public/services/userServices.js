@@ -12,11 +12,12 @@ angular.module('userService', [])
     }
 })
 
-.factory('Auth', function($http, AuthToken) {
+.factory('Auth', function($http, $q, AuthToken) {
     var Services = {
         getLoginReq  : getLoginReq,
         isLoggedIn   : isLoggedIn,
-        logout       : logout
+        logout       : logout,
+        getUser      : getUser
     };
 
     return Services;
@@ -37,6 +38,16 @@ angular.module('userService', [])
         }
         else {
             return false;
+        }
+    }
+
+    //getUser()
+    function getUser() {
+        if(AuthToken.getToken()) {
+            return $http.post('/api/me');
+        }
+        else {
+            $q.reject({ message: "Token Bulunamadı." });
         }
     }
 
@@ -67,5 +78,21 @@ angular.module('userService', [])
     //getToken
     function getToken() {
         return $window.localStorage.getItem('token');
+    }
+})
+
+.factory('AuthInterceptors', function(AuthToken) {
+    var Services = {
+        request:    request
+    };
+    
+    return Services;
+
+    function request(config) {
+        var token = AuthToken.getToken();
+
+        if (token) config.headers['x-access-token'] = token;
+
+        return config;
     }
 })
