@@ -34,6 +34,10 @@ angular.module('appRoutes', ['ngRoute'])
         controller:  'logHouseController',
         controllerAs: 'login'
     })
+
+    .when('/logout', {
+        templateUrl: '/views/pages/users/logout.html'
+    })
     
     .otherwise({ redirectTo: '/' });
 
