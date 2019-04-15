@@ -23,6 +23,10 @@ angular.module('appRoutes', ['ngRoute'])
         controllerAs: 'login'
     })
 
+    .when('/user/profile', {
+        templateUrl: '/views/pages/users/profile.html',
+    })
+
     .when('/housewife/register', {
         templateUrl: '/views/pages/housewifes/register.html',
         controller:  'regHouseController',
