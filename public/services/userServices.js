@@ -12,14 +12,60 @@ angular.module('userService', [])
     }
 })
 
-.factory('Auth', function($http) {
+.factory('Auth', function($http, AuthToken) {
     var Services = {
-        getLoginReq  : getLoginReq
+        getLoginReq  : getLoginReq,
+        isLoggedIn   : isLoggedIn,
+        logout       : logout
     };
 
     return Services;
 
     function getLoginReq(url, loginData) {
-        return $http.post(url, loginData);
+        return $http.post(url, loginData)
+        .then(function(data) {
+            AuthToken.setToken(data.data.token);
+            return data;
+        })
+    }
+
+
+    //isLoggedIn()
+    function isLoggedIn() {
+        if(AuthToken.getToken()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    //Logout()
+    function logout() {
+        AuthToken.setToken();
+    }
+})
+
+.factory('AuthToken', function($window) {
+    var Services = {
+        setToken  : setToken,
+        getToken  : getToken
+    };
+
+    return Services;
+
+    //setToken
+    function setToken(token) {
+        if(token) {
+            $window.localStorage.setItem('token', token);
+        }
+        else {
+            $window.localStorage.removeItem('token');
+        }
+    }
+
+    //getToken
+    function getToken() {
+        return $window.localStorage.getItem('token');
     }
 })
