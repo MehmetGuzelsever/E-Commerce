@@ -17,6 +17,11 @@ angular.module('mainController', [])
             app.username = "";
         }
     })
+
+    app.updateUser = function(){
+        $location.path("/user/update")
+    }
+
     if(Auth.isLoggedIn()) {
         Auth.getUser()
         .then(function(data) {
