@@ -3,6 +3,7 @@ const router  = express.Router();
 
 //Services
 const auth      = require("./authenticate/index");
+const account   = require("./accounts/index");
 const admin     = require("./admin/index");
 const categoty  = require("./category/index");
 const food      = require("./food/index");
@@ -121,6 +122,17 @@ router.post('/me', function(req, res) {
     res.send(req.decoded);
 })
 
+//User Update
+router.post('/user/update', function(req, res) {
+    account.userUpdate(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
 
 //Export Router
 module.exports=router;
