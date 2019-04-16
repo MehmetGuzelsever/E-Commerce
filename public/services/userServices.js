@@ -96,3 +96,15 @@ angular.module('userService', [])
         return config;
     }
 })
+
+.factory('Update', function($http, $q, AuthToken) {
+    var Services = {
+        update:    update
+    };
+    
+    return Services;
+
+    function update(url, data) {
+        return $http.post(url, data)
+    }
+})
