@@ -27,6 +27,12 @@ angular.module('appRoutes', ['ngRoute'])
         templateUrl: '/views/pages/users/profile.html',
     })
 
+    .when('/user/update', {
+        templateUrl: '/views/pages/users/update.html',
+        controller:  'updateController',
+        controllerAs: 'update'                
+    })
+
     .when('/housewife/register', {
         templateUrl: '/views/pages/housewifes/register.html',
         controller:  'regHouseController',
