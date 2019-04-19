@@ -22,6 +22,23 @@ angular.module('mainController', [])
         $location.path("/user/update")
     }
 
+    app.updateHousewife = function(){
+        $location.path("/housewife/update")
+    }
+
+    app.activeUserType = function() {
+        Auth.getUser()
+        .then(function(data) {
+            app.adres = data.data.adres;          
+        })
+        if (app.adres != null) {
+            $location.path('/user/profile');
+        }        
+        else {
+            $location.path('/housewife/profile');
+        }
+    }
+
     if(Auth.isLoggedIn()) {
         Auth.getUser()
         .then(function(data) {
@@ -30,7 +47,8 @@ angular.module('mainController', [])
             app.name = data.data.name;
             app.surname = data.data.surname;
             app.il = data.data.il;
-            app.ilce = data.data.ilce;            
+            app.ilce = data.data.ilce;
+            app.adres = data.data.adres;            
         })
     }
     else {
