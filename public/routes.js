@@ -45,6 +45,17 @@ angular.module('appRoutes', ['ngRoute'])
         controllerAs: 'login'
     })
 
+    .when('/housewife/profile', {
+        templateUrl: '/views/pages/housewifes/profile.html',
+    })
+
+    
+    .when('/housewife/update', {
+        templateUrl: '/views/pages/housewifes/update.html',
+        controller:  'updateHousewifeController',
+        controllerAs: 'update'                
+    })
+
     .when('/logout', {
         templateUrl: '/views/pages/users/logout.html'
     })
