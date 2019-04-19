@@ -32,6 +32,7 @@
  <!--Import Angular Services-->
  <script src="services/userServices.js"></script>
  <script src="services/housewifeService.js"></script>
+ <script src="services/mainService.js"></script>
 
   <!-- Custom styles for this template -->
   <link href="template/css/business-frontpage.css" rel="stylesheet">
@@ -67,7 +68,7 @@
               <a class="nav-link" ng-click="main.logout()">Çıkış</a>            
             </li>
             <li class="nav-item" >
-                <a class="nav-link" href="/user/profile">{{ main.username }}</a>            
+                <a class="nav-link" ng-click="main.activeUserType()">{{ main.username }}</a>            
               </li>            
         </ul>
       </div>
