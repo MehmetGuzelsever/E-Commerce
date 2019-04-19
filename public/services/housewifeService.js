@@ -12,14 +12,14 @@ angular.module('housewifeService', [])
     }
 })
 
-.factory('AuthHouse', function($http) {
+.factory('UpdateHousewife', function($http) {
     var Services = {
-        getLoginReq  : getLoginReq
+        update:    update
     };
-
+    
     return Services;
 
-    function getLoginReq(url, loginData) {
-        return $http.post(url, loginData);
+    function update(url, data) {
+        return $http.post(url, data)
     }
 })
