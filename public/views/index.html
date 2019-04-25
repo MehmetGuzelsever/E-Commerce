@@ -56,20 +56,23 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/siparislerim">Siparişlerim</a>
+            <a class="nav-link" ng-if="main.adres == null && main.isLogin() == true" href="/user/siparislerim">Siparişlerim</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/user/yemekler">Yemekler</a>
+            <a class="nav-link" ng-if="main.adres && main.isLogin() == true"" href="/user/yemekler">Yemekler</a>
           </li>
           <li class="nav-item" >
-            <a class="nav-link" href="/user/login">Giriş</a>            
+            <a class="nav-link" ng-if="main.isLogin() == false" href="/user/login">Kullanıcı Giriş</a>            
           </li>
           <li class="nav-item" >
-              <a class="nav-link" ng-click="main.logout()">Çıkış</a>            
+            <a class="nav-link" ng-if="main.isLogin() == false" href="/housewife/login">Ev Hanımı Girişi</a>            
+          </li>          
+          <li class="nav-item" >
+              <a class="nav-link" ng-show="main.isLogin()" ng-click="main.logout()">Çıkış</a>            
             </li>
             <li class="nav-item" >
                 <a class="nav-link" ng-click="main.activeUserType()">{{ main.username }}</a>            
-              </li>            
+              </li>                       
         </ul>
       </div>
     </div>
