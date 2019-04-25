@@ -61,4 +61,13 @@ angular.module('mainController', [])
             $location.path('/');
         },2000);
     }
+
+    app.isLogin = function() {
+        if (Auth.isLoggedIn()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 })
