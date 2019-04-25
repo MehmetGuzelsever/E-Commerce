@@ -84,3 +84,23 @@ angular.module('mainService', [])
         return config;
     }
 })
+
+.factory('activeUserType', function(Auth) {
+    var Services = {
+        active:    active
+    };
+    
+    return Services; 
+    
+    function active() {
+        Auth.getUser()
+        .then(function(data) {
+            if (data.data.adres) {
+                return "housewife";
+            }
+            else if (!data.data.adres) {
+                return "user";
+            }
+        })
+    }
+})
