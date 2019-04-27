@@ -28,14 +28,16 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
     .when('/user/profile', {
         templateUrl: '/views/pages/users/profile.html',
-        authenticated: true
+        authenticated: true,
+        permission:    'user'
     })
 
     .when('/user/update', {
         templateUrl: '/views/pages/users/update.html',
         controller:  'updateController',
         controllerAs: 'update',
-        authenticated: true                
+        authenticated: true,
+        permission:     'user'                
     })
 
     .when('/housewife/register', {
@@ -54,7 +56,8 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
     .when('/housewife/profile', {
         templateUrl: '/views/pages/housewifes/profile.html',
-        authenticated: true
+        authenticated: true,
+        permission:    'housewife'
     })
 
     
@@ -62,7 +65,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
         templateUrl: '/views/pages/housewifes/update.html',
         controller:  'updateHousewifeController',
         controllerAs: 'update', 
-        authenticated: true               
+        authenticated: true,
+        permission:    'housewife'               
+    })
+
+    .when('/manegement', {
+        templateUrl: '/views/pages/manegement.html',
+        authenticated: true,
+        permission:     'admin'                
     })
 
     .when('/logout', {
@@ -88,6 +98,15 @@ app.run(['$rootScope', 'Auth', 'activeUserType', '$location', function($rootScop
             if (!Auth.isLoggedIn()) {
                 event.preventDefault();
                 $location.path('/');
+            }
+            else if (next.$$route.permission) {
+                Auth.getUser()
+                .then(function(data) {
+                    if (next.$$route.permission != data.data.permission) {
+                        event.preventDefault();
+                        $location.path('/');                        
+                    }              
+                })                
             }
         }
         else if (next.$$route.authenticated == false) {
