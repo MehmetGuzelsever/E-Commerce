@@ -28,7 +28,12 @@ const normalKullanici = new Schema({
     k_ilce:{
         type: String,
         required: true
-    }                  
+    },
+    permission:{
+        type: String,
+        required: true,
+        default: 'user'
+    }                       
 });
 
 

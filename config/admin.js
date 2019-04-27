@@ -20,7 +20,12 @@ const admin = new Schema({
     a_password:{
         type: String,
         required: true
-    }             
+    },
+    permission:{
+        type: String,
+        required: true,
+        default: 'admin'
+    }                  
 });
 
 //password hashing

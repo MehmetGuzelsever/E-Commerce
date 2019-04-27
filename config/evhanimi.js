@@ -32,7 +32,12 @@ const evHanimi = new Schema({
     e_adres:{
         type: String,
         required: true
-    }                      
+    },
+    permission:{
+        type: String,
+        required: true,
+        default: 'housewife'
+    }                            
 });
 
 //password hashing
