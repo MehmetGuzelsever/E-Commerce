@@ -3,7 +3,6 @@ angular.module('mainController', [])
 .controller('mainCntr', function($location, $timeout, $rootScope, Auth) {
     var app = this;
     app.showregpage = true;
-    app.permission = null;
     $rootScope.$on('$routeChangeStart', function() {
         if(Auth.isLoggedIn()) {
             console.log("Success:Kullanıci Giriş Yapmış.");
@@ -11,11 +10,13 @@ angular.module('mainController', [])
             .then(function(data) {
                 console.log(data)
                 app.username = data.data.email;
+                app.permission = data.data.permission;
             })
         }
         else {
             console.log("Failure:Kullanıcı Giriş Yapmadı.");
             app.username = "";
+            app.permission = null;
         }
     })
 
@@ -67,14 +68,6 @@ angular.module('mainController', [])
     app.isLogin = function() {
         if (Auth.isLoggedIn()) {
             return true;
-        }
-        else {
-            return false;
-        }
-    } 
-    app.isPermission = function() {
-        if (Auth.isLoggedIn()) {
-            return app.permission;
         }
         else {
             return false;
