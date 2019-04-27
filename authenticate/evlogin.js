@@ -26,7 +26,7 @@ module.exports = function (info, callback) {
         callback(js);        
     }
     else {
-        ev.findOne({ e_email: info.email }).select('e_email e_password e_adi e_soyadi e_il e_ilce e_adres').exec(function (err, EvHanimi) {
+        ev.findOne({ e_email: info.email }).select('e_email e_password e_adi e_soyadi e_il e_ilce e_adres permission').exec(function (err, EvHanimi) {
             if (!EvHanimi) {
                 const js = {
                     success:    false,
@@ -45,7 +45,7 @@ module.exports = function (info, callback) {
                     callback(js);
                 }
                 else {
-                    const token = jwt.sign({ email: EvHanimi.e_email, name: EvHanimi.e_adi, surname:EvHanimi.e_soyadi, il:EvHanimi.e_il, ilce:EvHanimi.e_ilce, adres: EvHanimi.e_adres }, secret, { expiresIn: '2h' });
+                    const token = jwt.sign({ email: EvHanimi.e_email, name: EvHanimi.e_adi, surname:EvHanimi.e_soyadi, il:EvHanimi.e_il, ilce:EvHanimi.e_ilce, adres: EvHanimi.e_adres, permission: EvHanimi.permission }, secret, { expiresIn: '2h' });
                     const js = {
                         success:    true,
                         msg:        "Login Başarılı.",
