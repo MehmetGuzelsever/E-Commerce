@@ -56,10 +56,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" ng-if="main.adres == null && main.isLogin() == true" href="/user/siparislerim">Siparişlerim</a>
+            <a class="nav-link" ng-if="main.permission == 'user'" href="/user/siparislerim">Siparişlerim</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" ng-if="main.adres && main.isLogin() == true"" href="/user/yemekler">Yemekler</a>
+            <a class="nav-link" ng-if="main.permission == 'housewife'"  href="/user/yemekler">Yemekler</a>
           </li>
           <li class="nav-item" >
             <a class="nav-link" ng-if="main.isLogin() == false" href="/user/login">Kullanıcı Giriş</a>            
