@@ -3,6 +3,7 @@ angular.module('mainController', [])
 .controller('mainCntr', function($location, $timeout, $rootScope, Auth) {
     var app = this;
     app.showregpage = true;
+    app.permission = null;
     $rootScope.$on('$routeChangeStart', function() {
         if(Auth.isLoggedIn()) {
             console.log("Success:Kullanıci Giriş Yapmış.");
@@ -48,7 +49,8 @@ angular.module('mainController', [])
             app.surname = data.data.surname;
             app.il = data.data.il;
             app.ilce = data.data.ilce;
-            app.adres = data.data.adres;            
+            app.adres = data.data.adres;
+            app.permission = data.data.permission;         
         })
     }
     else {
@@ -69,5 +71,13 @@ angular.module('mainController', [])
         else {
             return false;
         }
-    }
+    } 
+    app.isPermission = function() {
+        if (Auth.isLoggedIn()) {
+            return app.permission;
+        }
+        else {
+            return false;
+        }
+    }     
 })
