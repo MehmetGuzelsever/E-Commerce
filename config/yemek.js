@@ -7,10 +7,10 @@ const yemek = new Schema({
         type: String,
         required: true
     },    
-    y_evhanimi:{
+    y_evMail:{
         type: String,
         required: true
-    },
+    },      
     y_cesit:{
         type: String,
         required: true
@@ -21,7 +21,7 @@ const yemek = new Schema({
     },
     y_aciklama:{
         type: String
-    },
+    },                    
     y_il:{
         type: String,
         required: true
@@ -29,7 +29,7 @@ const yemek = new Schema({
     y_ilce:{
         type: String,
         required: true
-    },                       
+    }            
 });
 
 
