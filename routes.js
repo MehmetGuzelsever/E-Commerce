@@ -146,5 +146,41 @@ router.post('/housewife/update', function(req, res) {
     })
 })
 
+//Housewife Food Adding
+router.post('/housewife/food/adding', function(req, res) {
+    food.adding(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
+//Admin Category Adding
+router.post('/admin/category/adding', function(req, res) {
+    admin.addCategory(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
+//Admin Category getting
+router.post('/category/get', function(req, res) {
+    admin.getCategory(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
 //Export Router
 module.exports=router;
