@@ -45,6 +45,21 @@ angular.module('mainService', [])
     }
 })
 
+.factory('Request', function($http, $q, AuthToken) {
+    var Services = {
+        request  : request,
+    };
+
+    return Services;
+
+    function request(url, data) {
+        return $http.post(url, data)
+        .then(function(data) {
+            return data;
+        })
+    }
+})
+
 .factory('AuthToken', function($window) {
     var Services = {
         setToken  : setToken,
