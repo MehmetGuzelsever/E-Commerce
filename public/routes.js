@@ -69,8 +69,26 @@ var app = angular.module('appRoutes', ['ngRoute'])
         permission:    'housewife'               
     })
 
-    .when('/manegement', {
-        templateUrl: '/views/pages/manegement.html',
+    .when('/housewife/addfood', {
+        templateUrl: '/views/pages/housewifes/addfood.html',
+        authenticated: true,
+        controller:  'addFoodController',
+        controllerAs: 'food',        
+        permission:    'housewife'
+    })
+
+    .when('/admin/login', {
+        templateUrl: '/views/pages/admin/login.html',
+        controller:  'adminLogController',
+        controllerAs: 'login',
+        authenticated: false
+    })
+
+
+    .when('/admin/category/add', {
+        templateUrl: '/views/pages/admin/addCategory.html',
+        controller:  'addCategoryController',
+        controllerAs: 'category',              
         authenticated: true,
         permission:     'admin'                
     })
