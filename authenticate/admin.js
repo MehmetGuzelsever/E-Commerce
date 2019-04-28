@@ -13,19 +13,19 @@ module.exports = function (info, callback) {
     admin.a_password = info.password;
 
 
-    if (info.email == null || info.adi || info.soyadi || info.password) {
+    if (info.email == null || info.adi == null  || info.soyadi == null  || info.password == null) {
         const js = {
             success:    false,
             msg:        "Admin E-Posta, İsim, Soyisim, Adres veya Şifre Boş Geçilemez."
         };
         callback(js);
     }
-    else if (info.key == adminKEY) {
+    else if (adminKEY == info.key) {
         admin.save(function (err) {
             if(err) {
                 const js = {
                     success:    false,
-                    msg:        "E-Posta zaten Kayıtlı."
+                    msg:        "E-Posta zaten kayıtlı."
                 };
                 callback(js);
             }
