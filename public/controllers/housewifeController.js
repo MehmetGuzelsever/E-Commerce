@@ -136,3 +136,45 @@ angular.module('housewifeController', [])
     }
 
 })
+
+//add Food Controller
+.controller('addFoodController', function($location, Request, Auth) {
+    var app = this;
+    app.errMsg = false;
+    app.successMsg = false;
+    Auth.getUser()
+    .then(function(data) {
+        app.email = data.data.email;
+        app.name = data.data.name;
+        app.surname = data.data.surname;
+        app.il = data.data.il;
+        app.ilce = data.data.ilce;   
+        app.adres = data.data.adres;         
+    })    
+    Request.request('/api/category/get')
+    .then(function(data) {
+        var asd = data.data.data;
+        app.list = asd;
+    })
+    app.addFood = function() {
+        app.loading = true;
+        app.foodData.email = app.email;
+        app.foodData.il = app.il;
+        app.foodData.ilce = app.ilce;
+        app.foodData.cesit = app.foodData.cesit.category_adi;
+        Request.request('/api/housewife/food/adding',app.foodData)
+        .then(function(data) {
+            if (data.data.success == false) {
+                app.loading = false;
+                app.errMsg = true;
+                app.msg = data.data.msg;
+            }
+            else {
+                app.loading = false;
+                app.successMsg = true;
+                app.msg = data.data.msg;
+                $location.path('/');
+            }
+        })                                                        
+    }
+})
