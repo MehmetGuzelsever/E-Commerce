@@ -158,6 +158,18 @@ router.post('/housewife/food/adding', function(req, res) {
     })
 })
 
+//Housewife Food Listing
+router.post('/housewife/food/listing', function(req, res) {
+    food.listing(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
 //Admin Category Adding
 router.post('/admin/category/adding', function(req, res) {
     admin.addCategory(req.body, function (error, response) {
