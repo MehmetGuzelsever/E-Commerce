@@ -40,6 +40,18 @@ var app = angular.module('appRoutes', ['ngRoute'])
         permission:     'user'                
     })
 
+    .when('/user/food/list', {
+        templateUrl: '/views/pages/users/listfood.html',
+        authenticated: true,
+        permission:     'user'                
+    })
+
+    .when('/user/orders', {
+        templateUrl: '/views/pages/users/orders.html',
+        authenticated: true,
+        permission:     'user'                
+    })
+
     .when('/housewife/register', {
         templateUrl: '/views/pages/housewifes/register.html',
         controller:  'regHouseController',
@@ -74,6 +86,12 @@ var app = angular.module('appRoutes', ['ngRoute'])
         authenticated: true,
         controller:  'addFoodController',
         controllerAs: 'food',        
+        permission:    'housewife'
+    })
+
+    .when('/housewife/myfoods', {
+        templateUrl: '/views/pages/housewifes/myfoods.html',
+        authenticated: true,     
         permission:    'housewife'
     })
 

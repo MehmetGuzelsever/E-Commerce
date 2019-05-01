@@ -57,10 +57,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" ng-if="main.permission == 'user'" href="/user/siparislerim">Siparişlerim</a>
+            <a class="nav-link" ng-if="main.permission == 'user'" href="/user/orders">Siparişlerim</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" ng-if="main.permission == 'housewife'"  href="/user/yemekler">Yemekler</a>
+            <a class="nav-link" ng-if="main.permission == 'user'" href="/user/food/list">Yemekler</a>
+          </li>          
+          <li class="nav-item">
+            <a class="nav-link" ng-if="main.permission == 'housewife'"  href="/housewife/myfoods">Yemeklerim</a>
           </li>
           <li class="nav-item" >
             <a class="nav-link" ng-if="main.isLogin() == false" href="/user/login">Kullanıcı Giriş</a>            
@@ -70,10 +73,13 @@
           </li>          
           <li class="nav-item" >
               <a class="nav-link" ng-show="main.isLogin()" ng-click="main.logout()">Çıkış</a>            
-            </li>
-            <li class="nav-item" >
-                <a class="nav-link" ng-click="main.activeUserType()">{{ main.username }}</a>            
-              </li>                       
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" ng-if="main.permission == 'user'" href="/user/profile">{{ main.username }}</a>
+          </li>    
+          <li class="nav-item">
+            <a class="nav-link" ng-if="main.permission == 'housewife'" href="/housewife/profile">{{ main.username }}</a>
+        </li>                                     
         </ul>
       </div>
     </div>
