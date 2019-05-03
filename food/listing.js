@@ -12,7 +12,7 @@ module.exports = function (info, callback) {
         callback(js);        
     }
     else {
-        food.find({ y_evMail: info.email }, function(err, Food) {
+        food.find({ y_evMail: info.email }, 'y_adi y_evMail y_cesit y_fiyat y_aciklama y_il y_ilce', function(err, Food) {
             if (err) {
                 const js = {
                     success:    false,
