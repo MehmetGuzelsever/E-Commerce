@@ -134,6 +134,18 @@ router.post('/user/update', function(req, res) {
     })
 })
 
+//User Food Listing
+router.post('/user/food/listing', function(req, res) {
+    food.userfoods(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
 //Housewife Update
 router.post('/housewife/update', function(req, res) {
     account.housewifeUpdate(req.body, function (error, response) {
@@ -161,6 +173,42 @@ router.post('/housewife/food/adding', function(req, res) {
 //Housewife Food Listing
 router.post('/housewife/food/listing', function(req, res) {
     food.listing(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
+//Housewife Food list
+router.post('/housewife/food/one', function(req, res) {
+    food.onefood(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
+//Housewife Food Updating
+router.post('/housewife/food/update', function(req, res) {
+    food.update(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
+//Housewife Food Deleting
+router.post('/housewife/food/delete', function(req, res) {
+    food.delete(req.body, function (error, response) {
         if (error) {
             res.send(error);
         }
