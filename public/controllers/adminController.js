@@ -53,3 +53,109 @@ angular.module('adminController', [])
         })
     }
 })
+
+//Category Update Controller
+.controller('updateCategoryController', function($location, Request) {
+    var app = this;
+    app.loading = false;
+    app.errMsg = false;
+    app.sucMsg = false;
+    Request.request('/api/category/get')
+    .then(function(data) {
+        var asd = data.data.data;
+        app.list = asd;
+    })
+    
+    
+    app.update = function() {
+        app.loading = true;
+        app.errMsg = false;
+        app.sucMsg = false;
+        if (!app.categoryData.adi) {
+            app.loading = false;
+            app.errMsg = true;
+            app.error = "Lütfen Kategori Seçiniz."
+        }
+        else if (!app.categoryData.newcategory_adi) {
+            app.loading = false;
+            app.errMsg = true;
+            app.error = "Lütfen Yeni Kategori Adını Giriniz."
+        }
+        else {
+            app.categoryData.category_adi = app.categoryData.adi.category_adi;
+            Request.request('/api/admin/category/update', app.categoryData)
+            .then(function(data) {
+                if (data.data.success == false) {
+                    app.loading = false;
+                    app.errMsg = true;
+                    app.error = data.data.msg;
+                }
+                else {
+                    app.loading = false;
+                    app.successMsg = true;
+                    app.success = data.data.msg;
+                    $location.path('/');
+                }
+            })
+        }
+    }
+})
+
+//Category Delete Controller
+.controller('deleteCategoryController', function($location, Request) {
+    var app = this;
+    app.loading = false;
+    app.errMsg = false;
+    app.sucMsg = false;
+    Request.request('/api/category/get')
+    .then(function(data) {
+        var asd = data.data.data;
+        app.list = asd;
+    })
+    
+    
+    app.delete = function() {
+        app.loading = true;
+        app.errMsg = false;
+        app.sucMsg = false;
+        if (!app.categoryData.adi) {
+            app.loading = false;
+            app.errMsg = true;
+            app.error = "Lütfen Kategori Seçiniz."
+        }
+        else {
+            app.categoryData.category_adi = app.categoryData.adi.category_adi;
+            Request.request('/api/admin/category/delete', app.categoryData)
+            .then(function(data) {
+                if (data.data.success == false) {
+                    app.loading = false;
+                    app.errMsg = true;
+                    app.error = data.data.msg;
+                }
+                else {
+                    app.loading = false;
+                    app.successMsg = true;
+                    app.success = data.data.msg;
+                    $location.path('/');
+                }
+            })
+        }
+    }
+})
+
+//Admin Manegement Controller
+.controller('manegementController', function($location) {
+    var app = this;
+
+    app.add = function() {
+        $location.path('/admin/category/add');
+    }
+
+    app.update = function() {
+        $location.path('/admin/category/update');
+    }
+
+    app.delete = function() {
+        $location.path('/admin/category/delete');
+    }
+})
