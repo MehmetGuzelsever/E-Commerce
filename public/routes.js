@@ -42,6 +42,8 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
     .when('/user/food/list', {
         templateUrl: '/views/pages/users/listfood.html',
+        controller:  'userListFoodController',
+        controllerAs: 'food',        
         authenticated: true,
         permission:     'user'                
     })
@@ -91,9 +93,27 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
     .when('/housewife/myfoods', {
         templateUrl: '/views/pages/housewifes/myfoods.html',
+        controller:  'listFoodController',
+        controllerAs: 'food',           
         authenticated: true,     
         permission:    'housewife'
     })
+
+    .when('/housewife/updatefood', {
+        templateUrl: '/views/pages/housewifes/updatefood.html',
+        controller:  'updateFoodController',
+        controllerAs: 'food',                 
+        authenticated: true,     
+        permission:    'housewife'
+    })  
+
+    .when('/housewife/deletefood', {
+        templateUrl: '/views/pages/housewifes/delete.html',
+        controller:  'deleteFoodController',
+        controllerAs: 'food',                 
+        authenticated: true,     
+        permission:    'housewife'
+    })       
 
     .when('/admin/login', {
         templateUrl: '/views/pages/admin/login.html',

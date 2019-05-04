@@ -132,3 +132,70 @@ angular.module('userController', [])
     }
 
 })
+
+//User Food Listing Controller
+.controller('userListFoodController', function(Request, Auth) {
+    var app = this;
+    app.errMsg = false;
+    app.sucMsg = false;
+    app.il = ["İstanbul", "Ankara", "İzmir"];    
+    app.info = {};
+    app.ilce = function(il) {
+        if (il == "İzmir") {
+            app.ilceler = ["Bornova", "Buca", "Konak", "Tire"];
+        }
+        else if (il == "İstanbul") {
+            app.ilceler = ["Kadıköy", "Pendik", "Üsküdar", "Kartal"];
+        }
+        else if (il == "Ankara") {
+            app.ilceler = ["Çankaya", "Keçiören", "Yenimahalle", "Mamak"];
+        }
+    }
+
+    Auth.getUser()
+    .then(function(house) {
+        app.info.il = house.data.il;
+        app.info.ilce = house.data.ilce;
+        Request.request('/api/user/food/listing',app.info)
+        .then(function(data) {
+            app.foods = JSON.stringify(data.data.data)
+            app.asd = JSON.parse(app.foods);
+        })            
+    })
+    
+    Request.request('/api/category/get')
+    .then(function(data) {
+        var kategori = data.data.data;
+        app.categoryList = kategori;
+    })
+
+    app.clean = function() {
+        app.categoryFilter = null;
+    }
+    
+    app.filtre = function() {
+        app.loading = true;
+        app.errMsg = false;
+        app.sucMsg = false;
+        if (!app.foodData.il) {
+            app.errMsg = true;
+            app.error = "Lütfen İl seçiniz."
+            app.loading = false;
+        }
+        else if (!app.foodData.ilce) {
+            app.errMsg = true;
+            app.error = "Lütfen İlçe seçiniz."
+            app.loading = false;
+        }
+        else {
+            Request.request('/api/user/food/listing',app.foodData)
+            .then(function(data) {
+                app.foods = JSON.stringify(data.data.data)
+                app.asd = JSON.parse(app.foods);
+            })                
+            app.sucMsg = true;
+            app.success = "Filtre Uygulandı."
+            app.loading = false;
+        }
+    }
+})
