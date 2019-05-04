@@ -122,6 +122,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
         authenticated: false
     })
 
+    .when('/admin/manegement', {
+        templateUrl: '/views/pages/admin/manegement.html',
+        controller:  'manegementController',
+        controllerAs: 'manegement',              
+        authenticated: true,
+        permission:     'admin'                
+    })    
+
 
     .when('/admin/category/add', {
         templateUrl: '/views/pages/admin/addCategory.html',
@@ -130,6 +138,22 @@ var app = angular.module('appRoutes', ['ngRoute'])
         authenticated: true,
         permission:     'admin'                
     })
+
+    .when('/admin/category/update', {
+        templateUrl: '/views/pages/admin/updateCategory.html',
+        controller:  'updateCategoryController',
+        controllerAs: 'category',              
+        authenticated: true,
+        permission:     'admin'                
+    })
+    
+    .when('/admin/category/delete', {
+        templateUrl: '/views/pages/admin/deleteCategory.html',
+        controller:  'deleteCategoryController',
+        controllerAs: 'category',              
+        authenticated: true,
+        permission:     'admin'                
+    })       
 
     .when('/logout', {
         templateUrl: '/views/pages/users/logout.html',
