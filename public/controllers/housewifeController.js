@@ -178,3 +178,123 @@ angular.module('housewifeController', [])
         })                                                        
     }
 })
+
+//Listing Food Controller
+.controller('listFoodController', function($location, Request, Auth) {
+    var app = this;
+    app.info = {};
+    Auth.getUser()
+    .then(function(house) {
+        app.email = house.data.email;
+        app.info.email = app.email;
+        Request.request('/api/housewife/food/listing',app.info)
+        .then(function(data) {
+            app.foods = JSON.stringify(data.data.data)
+            app.asd = JSON.parse(app.foods);
+        })                     
+    })
+})
+
+//Updating Food Controller
+.controller('updateFoodController', function($location, Request, Auth) {
+    var app = this;
+    app.errMsg = false;
+    app.successMsg = false;      
+    app.info = {};
+    Auth.getUser()
+    .then(function(house) {
+        app.email = house.data.email;
+        app.info.email = app.email;
+        Request.request('/api/housewife/food/listing',app.info)
+        .then(function(data) {
+            app.foods = JSON.stringify(data.data.data)
+            app.asd = JSON.parse(app.foods);
+        })                     
+    })
+    
+    app.one = function() {
+        var one = {};
+        one.email = app.email;
+        one.adi = app.foodData.adi;
+        Request.request('/api/housewife/food/one',one)
+        .then(function(data) {
+            var info = data.data.data;
+            app.id = info[0]._id;
+            app.fiyat = info[0].y_fiyat;
+            app.acikalama = info[0].y_aciklama;
+        })        
+    }
+
+    app.update = function() {
+        app.foodData.id = app.id;
+        if (!app.foodData.fiyat) {
+            app.foodData.fiyat = app.fiyat;
+        }
+        else if (!app.foodData.aciklama) {
+            app.foodData.aciklama = app.acikalama;
+        }
+        else {
+            Request.request('/api/housewife/food/update', app.foodData)
+            .then(function(data) {
+                if (data.data.success == false) {
+                    app.errMsg = true;
+                    app.error = data.data.msg;
+                }
+                else {
+                    app.sucMsg = true;
+                    app.success = data.data.msg;
+                    $location.path('/housewife/myfoods');
+                }                
+            })
+        }
+    }
+})
+
+//Deleting Food Controller
+.controller('deleteFoodController', function($location, Request, Auth) {
+    var app = this;
+    app.errMsg = false;
+    app.successMsg = false;    
+    app.info = {};
+    app.deleted = {};
+    Auth.getUser()
+    .then(function(house) {
+        app.email = house.data.email;
+        app.info.email = app.email;
+        Request.request('/api/housewife/food/listing',app.info)
+        .then(function(data) {
+            app.foods = JSON.stringify(data.data.data)
+            app.asd = JSON.parse(app.foods);
+        })                     
+    })
+    
+    app.one = function() {
+        var one = {};
+        one.email = app.email;
+        one.adi = app.foodData.adi;
+        Request.request('/api/housewife/food/one',one)
+        .then(function(data) {
+            var info = data.data.data;
+            app.id = info[0]._id;
+            app.acikalama = info[0].y_aciklama;
+        })        
+    }
+
+    app.delete = function() {
+        app.deleted.email = app.email;
+        app.deleted.id = app.id;
+        Request.request('/api/housewife/food/delete', app.deleted)
+        .then(function(data) {
+            if (data.data.success == false) {
+                app.errMsg = true;
+                app.error = data.data.msg;
+            }
+            else {
+                app.sucMsg = true;
+                app.success = data.data.msg;
+                $location.path('/');
+            }
+        })
+    }
+
+})
