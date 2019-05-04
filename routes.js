@@ -242,5 +242,29 @@ router.post('/category/get', function(req, res) {
     })
 })
 
+//Admin Category Updating
+router.post('/admin/category/update', function(req, res) {
+    admin.updatecategory(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
+//Admin Category Deleting
+router.post('/admin/category/delet', function(req, res) {
+    admin.deletecategory(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
 //Export Router
 module.exports=router;
