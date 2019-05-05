@@ -134,12 +134,15 @@ angular.module('userController', [])
 })
 
 //User Food Listing Controller
-.controller('userListFoodController', function(Request, Auth) {
+.controller('userListFoodController', function(Request, Auth, Cart) {
     var app = this;
+    app.cart = {};
     app.errMsg = false;
     app.sucMsg = false;
     app.il = ["İstanbul", "Ankara", "İzmir"];    
     app.info = {};
+
+    
     app.ilce = function(il) {
         if (il == "İzmir") {
             app.ilceler = ["Bornova", "Buca", "Konak", "Tire"];
@@ -156,6 +159,7 @@ angular.module('userController', [])
     .then(function(house) {
         app.info.il = house.data.il;
         app.info.ilce = house.data.ilce;
+        app.email = house.data.email;
         Request.request('/api/user/food/listing',app.info)
         .then(function(data) {
             app.foods = JSON.stringify(data.data.data)
@@ -198,4 +202,42 @@ angular.module('userController', [])
             app.loading = false;
         }
     }
+
+    app.addCart = function(food) {
+        app.cart.id = food._id;
+        app.cart.adi = food.y_adi;
+        app.cart.cesit = food.y_cesit;
+        app.cart.fiyat = food.y_fiyat;        
+        Cart.addCart(app.email, app.cart);
+    }
+
+})
+
+//User Cart Controller
+.controller('cartController', function($window, Cart, Auth) {
+    var app = this;
+    Auth.getUser()
+    .then(function(house) {
+        app.email = house.data.email;        
+        app.cart = Cart.getCart(app.email);
+        app.data = JSON.parse(app.cart);        
+    })    
+    app.list = [];
+    app.index = -1;
+    app.newfood = {};
+    
+    app.add = function(food) {
+        app.newfood.id = food.id;
+        app.newfood.adi = food.adi;
+        app.newfood.cesit = food.cesit;
+        app.newfood.fiyat = food.fiyat;
+        Cart.addCart(app.email, app.newfood);
+        $window.location.reload();
+    }
+
+    app.out = function(a) {
+        Cart.deleteCart(a);
+        $window.location.reload();
+    }
+    
 })

@@ -119,3 +119,36 @@ angular.module('mainService', [])
         })
     }
 })
+
+.factory('Cart', function($window) {
+    var Services = {
+        addCart   : addCart,
+        getCart   : getCart,
+        deleteCart: deleteCart
+    };
+
+    return Services;
+
+    //setToken
+    function addCart(name,food) {
+        var oldFoods = JSON.parse(localStorage.getItem(name)) || [];
+        if(food) {
+            oldFoods.push(food);
+            $window.localStorage.setItem(name, JSON.stringify(oldFoods));
+        }
+        else {
+            $window.localStorage.removeItem(name);
+        }
+    }
+
+    function deleteCart(food) {
+        var oldFoods = JSON.parse(localStorage.getItem(name)) || [];
+        oldFoods.splice(food,1);
+        $window.localStorage.setItem(name, JSON.stringify(oldFoods));
+    }
+
+    //getToken
+    function getCart(name) {
+        return $window.localStorage.getItem(name);
+    }
+})
