@@ -54,6 +54,14 @@ var app = angular.module('appRoutes', ['ngRoute'])
         permission:     'user'                
     })
 
+    .when('/user/cart', {
+        templateUrl: '/views/pages/users/cart.html',
+        controller:  'cartController',
+        controllerAs: 'cart',          
+        authenticated: true,
+        permission:     'user'                
+    })    
+
     .when('/housewife/register', {
         templateUrl: '/views/pages/housewifes/register.html',
         controller:  'regHouseController',
