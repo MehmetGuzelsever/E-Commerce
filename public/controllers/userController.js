@@ -204,6 +204,7 @@ angular.module('userController', [])
     }
 
     app.addCart = function(food) {
+        app.cart.hanim = food.y_evMail;
         app.cart.id = food._id;
         app.cart.adi = food.y_adi;
         app.cart.cesit = food.y_cesit;
@@ -214,7 +215,7 @@ angular.module('userController', [])
 })
 
 //User Cart Controller
-.controller('cartController', function($window, Cart, Auth) {
+.controller('cartController', function($window, $location, Cart, Auth) {
     var app = this;
     Auth.getUser()
     .then(function(house) {
@@ -223,10 +224,10 @@ angular.module('userController', [])
         app.data = JSON.parse(app.cart);        
     })    
     app.list = [];
-    app.index = -1;
     app.newfood = {};
     
     app.add = function(food) {
+        app.newfood.hanim = food.hanim;
         app.newfood.id = food.id;
         app.newfood.adi = food.adi;
         app.newfood.cesit = food.cesit;
@@ -235,9 +236,83 @@ angular.module('userController', [])
         $window.location.reload();
     }
 
-    app.out = function(a) {
-        Cart.deleteCart(a);
+    app.out = function(index) {
+        Cart.deleteCart(app.email, index);
         $window.location.reload();
     }
+
+    app.order = function() {
+        $location.path('/user/order/detail')
+    }
     
+})
+
+//Order Controller
+.controller('orderController', function($location, Cart, Auth, Request) {
+    var app = this;
+    app.errMsg = false;
+    app.sucMsg = false;
+    app.toplam = 0;
+    var date = new Date();
+    Auth.getUser()
+    .then(function(house) {
+        app.email = house.data.email;        
+        app.cart = Cart.getCart(app.email);
+        app.data = JSON.parse(app.cart);
+        app.border = app.data.length;
+        for(i = 0; i < app.border; i++) {
+            app.toplam += app.data[i].fiyat;
+        }        
+    })
+
+    app.order = function() {
+        app.loading = true;
+        if (app.teslim_tarihi == null) {
+            app.loading = false;
+            app.errMsg = true;
+            app.error = "Lütfen Teslim Tarihini Seçiniz."
+        }
+        else {
+            for(i = 0; i < app.border; i++) {
+                app.fenrir = {};
+                app.fenrir.yemek_adi = app.data[i].adi;
+                app.fenrir.user = app.email;
+                app.fenrir.evhanimi = app.data[i].hanim;
+                app.fenrir.siparis_tarihi = date;
+                app.fenrir.teslim_tarihi = app.teslim_tarihi;
+                app.fenrir.siparis_tutar = app.data[i].fiyat;
+                Request.request('/api/user/order/new', app.fenrir)
+                .then(function(data) {
+                    if (data.data.success == false) {
+                        app.loading = false;
+                        app.errMsg = true;
+                        app.error = data.data.msg;
+                    }
+                    else {
+                        app.loading = false;
+                        app.sucMsg = true;
+                        app.success = data.data.msg;
+                        Cart.addCart(app.email);
+                        $location.path('/'); 
+                    }
+                })
+            }           
+        }
+    }
+})
+
+//Order List Controller
+.controller('orderListController', function($location, Cart, Auth, Request) {
+    var app = this;
+    app.info = {};
+    Auth.getUser()
+    .then(function(user) {
+        app.email = user.data.email;
+        app.info.email = app.email;
+        Request.request('/api/user/order/listing',app.info)
+        .then(function(data) {
+            app.foods = JSON.stringify(data.data.data)
+            app.list = JSON.parse(app.foods);
+        })            
+    })
 })
