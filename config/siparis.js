@@ -29,7 +29,12 @@ const siparis = new Schema({
     siparis_tutar:{
         type: Number,
         required: true
-    }                       
+    },
+    siparis_confirm:{
+        type: Boolean,
+        required: true,
+        default: false
+    }                            
 });
 
 
