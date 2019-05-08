@@ -50,6 +50,8 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
     .when('/user/orders', {
         templateUrl: '/views/pages/users/orders.html',
+        controller:  'orderListController',
+        controllerAs: 'order',         
         authenticated: true,
         permission:     'user'                
     })
@@ -60,7 +62,15 @@ var app = angular.module('appRoutes', ['ngRoute'])
         controllerAs: 'cart',          
         authenticated: true,
         permission:     'user'                
-    })    
+    }) 
+    
+    .when('/user/order/detail', {
+        templateUrl: '/views/pages/users/orderDetail.html',
+        controller:  'orderController',
+        controllerAs: 'order',          
+        authenticated: true,
+        permission:     'user'                
+    })     
 
     .when('/housewife/register', {
         templateUrl: '/views/pages/housewifes/register.html',
