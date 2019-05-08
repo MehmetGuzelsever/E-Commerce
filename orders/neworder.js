@@ -13,8 +13,8 @@ module.exports = function (info, callback) {
     Order.siparis_aciklama = info.siparis_aciklama;
     Order.siparis_tutar = info.siparis_tutar;
 
-    if (info.yemek_adi == null || info.user == null || info.evhanimi == null || 
-         info.teslim_tarihi == null || info.siparis_tutar == null) {
+    if (info.yemek_adi == null || info.user == null || info.evhanimi == null || info.siparis_tarih == null
+        || info.teslim_tarihi == null || info.siparis_tutar == null) {
             const js = {
                 success :   false,
                 msg:        "Sipariş Oluşturulmadı Sipariş İçin Eksik Bilgi."
