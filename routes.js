@@ -158,6 +158,18 @@ router.post('/user/order/new', function(req, res) {
     })
 })
 
+//User Order Listing
+router.post('/user/order/listing', function(req, res) {
+    orders.orderlistuser(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
 //Housewife Update
 router.post('/housewife/update', function(req, res) {
     account.housewifeUpdate(req.body, function (error, response) {
