@@ -141,7 +141,7 @@ angular.module('mainService', [])
         }
     }
 
-    function deleteCart(food) {
+    function deleteCart(name, food) {
         var oldFoods = JSON.parse(localStorage.getItem(name)) || [];
         oldFoods.splice(food,1);
         $window.localStorage.setItem(name, JSON.stringify(oldFoods));
