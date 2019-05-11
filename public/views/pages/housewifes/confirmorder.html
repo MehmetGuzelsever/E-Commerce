@@ -11,44 +11,44 @@
     </div>
   </header>
 
-
 <div class="container">
     <div class="row">
         <div class="col-md-4 mb-5">
-            <h4>Siparişlerim</h4>
+            <h4>Siparişler</h4>
             <table class="table table-stripped">
                 <thead>
                     <tr>
                         <th>Yemek Adı</th>
-                        <th>Ev Hanımı</th>
+                        <th>Sipariş Veren</th>
                         <th>Fiyat</th>
                         <th>Teslim Tarihi</th>
-                        <th>Onay Durumu</th>
+                        <th>Sipariş Durumu</th>
                     </tr>
                 </thead>
                 <tbody ng-repeat="item in order.list">
                     <tr>
-                        <td>{{ item.siparis_edilen }}</td>
-                        <td>{{ item.siparis_alan }}</td>
-                        <td>{{ item.siparis_tutar }}</td>
-                        <td>{{ item.siparis_teslim_tarih }}</td>
-                        <td ng-if="item.siparis_confirm == 'new'">Onay Bekliyor</td>
-                        <td ng-if="item.siparis_confirm == 'rejected'">Sipariş İptal Edildi</td>
-                        <td ng-if="item.siparis_confirm == 'approve'">Onaylandı</td>
-                        <td ng-if="item.siparis_confirm == 'approve'"><button class="btn btn-primary" ng-click="order.tamamla(item)">Siparişi Tamamlama</button></td>
+                        <td >{{ item.siparis_edilen }}</td>
+                        <td >{{ item.siparis_eden }}</td>
+                        <td >{{ item.siparis_tutar }}</td>
+                        <td >{{ item.siparis_teslim_tarih }}</td>
+                        <td ng-show="item.siparis_confirm != 'approve'" ng-if="item.siparis_confirm != 'rejected'"><button class="btn btn-primary" ng-click="order.approve(item._id)">Onayla</button></td>
+                        <td ng-show="item.siparis_confirm != 'approve'" ng-if="item.siparis_confirm != 'rejected'"><button class="btn btn-danger" ng-click="order.rejected(item._id)">Reddet</button></td>
+                        <td ng-show="item.siparis_confirm == 'approve'">Sipariş Kabul Edildi</td>
+                        <td ng-show="item.siparis_confirm == 'rejected'">Sipariş Reddedildi</td>
+                        <td ng-show="item.siparis_confirm == 'rejected'"><button class="btn btn-danger" ng-click="order.clean(item)">Siparişi Temizle</button></td>
                     </tr>
                 </tbody>
             </table>
             <div class="jumbotron text-center" ng-show="order.loading">
                 <span><i class="fas fa-spinner"></i></span>
                 <p>Loading...</p>
-            </div>            
-        <div class="alert alert-danger" ng-show="order.errMsg == true">
+            </div>
+            <div class="alert alert-danger" ng-show="order.errMsg == true">
                 {{order.error}}
             </div>
             <div class="alert alert-success" ng-show="order.sucMsg == true">
                 {{order.success}}
-            </div>              
+            </div>                                      
         </div>
     </div>
 </div>  

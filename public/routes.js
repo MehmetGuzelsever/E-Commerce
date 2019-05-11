@@ -131,7 +131,15 @@ var app = angular.module('appRoutes', ['ngRoute'])
         controllerAs: 'food',                 
         authenticated: true,     
         permission:    'housewife'
-    })       
+    }) 
+    
+    .when('/housewife/order/list', {
+        templateUrl: '/views/pages/housewifes/confirmorder.html',
+        controller:  'ordersController',
+        controllerAs: 'order',                       
+        authenticated: true,     
+        permission:    'housewife'
+    })  
 
     .when('/admin/login', {
         templateUrl: '/views/pages/admin/login.html',
@@ -171,7 +179,15 @@ var app = angular.module('appRoutes', ['ngRoute'])
         controllerAs: 'category',              
         authenticated: true,
         permission:     'admin'                
-    })       
+    })
+    
+    .when('/admin/orders/complated', {
+        templateUrl: '/views/pages/admin/complatedOrder.html',        
+        controller:  'complatedOrdersController',
+        controllerAs: 'order',           
+        authenticated: true,
+        permission:     'admin'                
+    })     
 
     .when('/logout', {
         templateUrl: '/views/pages/users/logout.html',
