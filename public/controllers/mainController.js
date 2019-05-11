@@ -8,7 +8,6 @@ angular.module('mainController', [])
             console.log("Success:Kullanıci Giriş Yapmış.");
             Auth.getUser()
             .then(function(data) {
-                console.log(data)
                 app.username = data.data.email;
                 app.permission = data.data.permission;
             })
