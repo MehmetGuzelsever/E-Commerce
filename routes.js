@@ -170,6 +170,18 @@ router.post('/user/order/listing', function(req, res) {
     })
 })
 
+//User Order Complated
+router.post('/user/order/complate', function(req, res) {
+    orders.complate(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
 //Housewife Update
 router.post('/housewife/update', function(req, res) {
     account.housewifeUpdate(req.body, function (error, response) {
@@ -254,6 +266,30 @@ router.post('/housewife/order/listing', function(req, res) {
     })
 })
 
+//Housewife Order Confirmation
+router.post('/housewife/order/confirm', function(req, res) {
+    orders.confirmorder(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
+//Housewife Order Cleaning
+router.post('/housewife/order/clean', function(req, res) {
+    orders.cleanorder(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
 //Admin Category Adding
 router.post('/admin/category/adding', function(req, res) {
     admin.addCategory(req.body, function (error, response) {
@@ -293,6 +329,18 @@ router.post('/admin/category/update', function(req, res) {
 //Admin Category Deleting
 router.post('/admin/category/delete', function(req, res) {
     admin.deletecategory(req.body, function (error, response) {
+        if (error) {
+            res.send(error);
+        }
+        else {
+            res.send(response);
+        }
+    })
+})
+
+//Admin Order Complated
+router.post('/admin/order/complated', function(req, res) {
+    admin.getComplatedOrder(req.body, function (error, response) {
         if (error) {
             res.send(error);
         }
