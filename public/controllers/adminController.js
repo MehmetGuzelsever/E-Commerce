@@ -158,6 +158,10 @@ angular.module('adminController', [])
     app.delete = function() {
         $location.path('/admin/category/delete');
     }
+
+    app.orders = function() {
+        $location.path('/admin/orders/complated');
+    }
 })
 
 //Admin Complated Orders Controller
