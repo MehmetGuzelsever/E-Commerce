@@ -304,6 +304,8 @@ angular.module('userController', [])
 //Order List Controller
 .controller('orderListController', function($location, Cart, Auth, Request) {
     var app = this;
+    app.errMsg = false;
+    app.sucMsg = false;
     app.info = {};
     Auth.getUser()
     .then(function(user) {
@@ -315,4 +317,23 @@ angular.module('userController', [])
             app.list = JSON.parse(app.foods);
         })            
     })
+
+    app.tamamla = function(item) {
+        app.loading = true;
+        Request.request('/api/user/order/complate', item)
+        .then(function(data) {
+            if (data.data.success == false) {
+                app.loading = false;
+                app.errMsg = true;
+                app.error = data.data.msg;
+            }
+            else {
+                app.loading = false;
+                app.sucMsg = true;
+                app.success = data.data.msg;
+                Cart.addCart(app.email);
+                $location.path('/'); 
+            }
+        })
+    }
 })

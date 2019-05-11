@@ -298,3 +298,82 @@ angular.module('housewifeController', [])
     }
 
 })
+
+//Orders Controller
+.controller('ordersController', function($location, Request, Auth) {
+    var app = this;
+    app.errMsg = false;
+    app.sucMsg = false;
+    app.info = {};
+    app.confirm = {};
+    Auth.getUser()
+    .then(function(user) {
+        app.email = user.data.email;
+        app.info.email = app.email;
+        Request.request('/api/housewife/order/listing',app.info)
+        .then(function(data) {
+            app.foods = JSON.stringify(data.data.data)
+            app.list = JSON.parse(app.foods);
+        })            
+    })
+    
+    app.approve = function(id) {
+        app.loading = true;
+        app.confirm.id = id;
+        app.confirm.confirm = "approve";
+        Request.request('/api/housewife/order/confirm', app.confirm)
+        .then(function(data) {
+            if (data.data.success == false) {
+                app.loading = false;
+                app.errMsg = true;
+                app.error = data.data.msg;
+            }
+            else {
+                app.loading = false;
+                app.sucMsg = true;
+                app.success = data.data.msg;
+                $location.path('/'); 
+            }
+        })
+    }
+
+    app.rejected = function(id) {
+        app.loading = true;
+        app.confirm.id = id;
+        app.confirm.confirm = "rejected";
+        Request.request('/api/housewife/order/confirm', app.confirm)
+        .then(function(data) {
+            if (data.data.success == false) {
+                app.loading = false;
+                app.errMsg = true;
+                app.error = data.data.msg;
+            }
+            else {
+                app.loading = false;
+                app.sucMsg = true;
+                app.success = data.data.msg;
+                $location.path('/'); 
+            }
+        })
+    }
+
+    app.clean = function(item) {
+        app.loading = true;
+        var info = {};
+        info.id = item._id;
+        Request.request('/api/housewife/order/clean', info)
+        .then(function(data) {
+            if (data.data.success == false) {
+                app.loading = false;
+                app.errMsg = true;
+                app.error = data.data.msg;
+            }
+            else {
+                app.loading = false;
+                app.sucMsg = true;
+                app.success = data.data.msg;
+                $location.path('/'); 
+            }
+        })
+    }
+})

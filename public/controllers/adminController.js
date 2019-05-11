@@ -159,3 +159,13 @@ angular.module('adminController', [])
         $location.path('/admin/category/delete');
     }
 })
+
+//Admin Complated Orders Controller
+.controller('complatedOrdersController', function(Request) {
+    var app = this;  
+    Request.request('/api/admin/order/complated')
+    .then(function(data) {
+        app.foods = JSON.stringify(data.data.data)
+        app.list = JSON.parse(app.foods)
+    })
+})
