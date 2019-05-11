@@ -31,9 +31,9 @@ const siparis = new Schema({
         required: true
     },
     siparis_confirm:{
-        type: Boolean,
+        type: String,
         required: true,
-        default: false
+        default: "new"
     }                            
 });
 
